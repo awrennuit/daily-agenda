@@ -1,6 +1,7 @@
 import React from 'react';
 import './MainList.css';
-import { IonList, IonItem } from '@ionic/react';
+import { IonList, IonItem, IonIcon, IonCheckbox, IonLabel } from '@ionic/react';
+import { trashOutline } from 'ionicons/icons';
 
 interface ContainerProps { }
 
@@ -39,7 +40,9 @@ const MainList: React.FC<ContainerProps> = () => {
         <IonList>
           {list.map(task=>
             <IonItem key={task.id}>
-              {task.task}
+              <IonCheckbox></IonCheckbox>
+              <IonLabel className="list-task">{task.task}</IonLabel>
+              <IonIcon slot="end" icon={trashOutline}></IonIcon>
             </IonItem>
           )}
         </IonList>
