@@ -1,0 +1,7 @@
+{
+  "name": "awren-to-do",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
