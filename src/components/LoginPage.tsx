@@ -1,8 +1,9 @@
 import React from 'react';
 import { IonCard, IonCardHeader, IonButton, IonLabel, IonInput, IonItem } from '@ionic/react';
+import { withRouter } from 'react-router';
 import './LoginPage.css';
 
-const LoginPage: React.FC = () => {
+const LoginPage: React.FC<any> = (props) => {
 
   return(
     <div className="login-container">
@@ -21,7 +22,10 @@ const LoginPage: React.FC = () => {
           </div>
           <IonButton style={{margin:"30px"}}>Login</IonButton>
           <div>
-            <IonButton color="medium" style={{marginBottom:"10px"}}>register</IonButton>
+            <IonButton 
+              color="medium" 
+              style={{marginBottom:"10px"}}
+              onClick={()=>props.history.push('/register')}>register</IonButton>
           </div>
         </div>
       </IonCard>
@@ -29,4 +33,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default withRouter(LoginPage);
