@@ -9,7 +9,7 @@ const RegistrationPage: React.FC<any> = props => {
     <div className="reg-container">
       <IonCard>
         <div className="reg-card-container">
-          <IonCardHeader style={{fontSize:"1.5em",color:"#FECC27"}}>Log In</IonCardHeader>
+          <IonCardHeader style={{fontSize:"1.5em",color:"#FECC27"}}>Register</IonCardHeader>
           <form>
             <div className="reg-input">
               <IonItem>
@@ -18,7 +18,7 @@ const RegistrationPage: React.FC<any> = props => {
               </IonItem>
               <IonItem>
                 <IonLabel position="floating">Email</IonLabel>
-                <IonInput value="username"></IonInput>
+                <IonInput value="email"></IonInput>
               </IonItem>
               <IonItem>
                 <IonLabel position="floating">Password</IonLabel>
