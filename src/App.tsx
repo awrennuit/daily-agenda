@@ -35,7 +35,7 @@ const App: React.FC = () => (
       <Link to="/home" style={{textDecoration:"none"}}>
         <IonHeader>
           <IonToolbar className="header">
-            <IonTitle>Daily Agenda</IonTitle>
+            <IonTitle style={{fontSize:"2em"}}>Daily Agenda</IonTitle>
           </IonToolbar>
         </IonHeader>
       </Link>
