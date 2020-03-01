@@ -4,6 +4,7 @@ import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonTabs, IonT
 import { IonReactRouter } from '@ionic/react-router';
 import { informationCircle, home } from 'ionicons/icons';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -37,7 +38,7 @@ const App: React.FC = () => (
           <Route exact path="/" render={() => <Redirect to="/:tab(home)" />} />
           <Route path="/:tab(home)" component={Home} exact={true} />
           {/* <Route path="/:tab(about)" component={About} exact={true} /> */}
-          {/* <Route path="**" component={NotFound} /> */}
+          <Route path="**" component={NotFound} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="home" href="/home">
