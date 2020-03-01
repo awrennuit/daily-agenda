@@ -226,8 +226,4 @@ http://ionicframework.com/docs/theming/ */
   ion-title.title-large {
     --color: white;
   }
-
-  ion-input:focus {
-    color: #000;
-  }
 }
