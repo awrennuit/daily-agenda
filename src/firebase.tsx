@@ -11,7 +11,10 @@ const firebaseConfig = {
   measurementId: process.env.MEASUREMENT_ID
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 firebase.analytics();
 
 // export const auth = firebase.auth();
