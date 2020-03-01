@@ -29,15 +29,23 @@ const RegistrationPage: React.FC<any> = props => {
             <div className="reg-input">
               <IonItem>
                 <IonLabel position="floating">Email</IonLabel>
-                <IonInput value={email} onIonChange={(e: any)=>setEmail(e.target.value)}></IonInput>
+                <IonInput value={email} onIonChange={(e: any)=>setEmail(e.target.value)} />
               </IonItem>
               <IonItem>
                 <IonLabel position="floating">Password</IonLabel>
-                <IonInput type="password" value={password} onIonChange={(e: any)=>setPassword(e.target.value)}></IonInput>
+                <IonInput 
+                  type="password" 
+                  value={password} 
+                  onIonChange={(e: any)=>setPassword(e.target.value)}
+                />
               </IonItem>
               <IonItem>
                 <IonLabel position="floating">Confirm Password</IonLabel>
-                <IonInput type="password" value={confirmPassword} onIonChange={(e: any)=>setConfirmPassword(e.target.value)}></IonInput>
+                <IonInput 
+                  type="password" 
+                  value={confirmPassword} 
+                  onIonChange={(e: any)=>setConfirmPassword(e.target.value)}
+                />
               </IonItem>
             </div>
             <IonButton type="submit" style={{margin:"30px"}}>Submit</IonButton>
