@@ -3,9 +3,7 @@ import './MainList.css';
 import { IonList, IonItem, IonIcon, IonCheckbox, IonLabel, IonButton } from '@ionic/react';
 import { trash } from 'ionicons/icons';
 
-interface ContainerProps { }
-
-const MainList: React.FC<ContainerProps> = () => {
+const MainList: React.FC = () => {
 
   const list = [
     {
