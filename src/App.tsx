@@ -27,6 +27,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Registration from './pages/Registration';
 
 const App: React.FC = () => {
 
@@ -45,6 +46,7 @@ const App: React.FC = () => {
             <Route exact path="/" render={()=><Redirect to="/home" />} />
             <Route path="/:tab(home)" component={Home} exact={true} />
             <Route path="/login" component={Login} exact={true} />
+            <Route path="/register" component={Registration} exact={true} />
             <Route path="/:tab(about)" component={About} exact={true} />
             <Route path="**" component={NotFound} />
           </IonRouterOutlet>
