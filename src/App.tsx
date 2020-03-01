@@ -36,7 +36,7 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/" render={() => <Redirect to="/:tab(home)" />} />
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route path="/:tab(home)" component={Home} exact={true} />
           <Route path="/:tab(about)" component={About} exact={true} />
           <Route path="**" component={NotFound} />
