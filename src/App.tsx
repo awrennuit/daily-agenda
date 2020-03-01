@@ -3,6 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonTabs, IonTabButton, IonTabBar, IonIcon, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { informationCircle, home } from 'ionicons/icons';
+import About from './pages/About';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 
@@ -37,7 +38,7 @@ const App: React.FC = () => (
         <IonRouterOutlet>
           <Route exact path="/" render={() => <Redirect to="/:tab(home)" />} />
           <Route path="/:tab(home)" component={Home} exact={true} />
-          {/* <Route path="/:tab(about)" component={About} exact={true} /> */}
+          <Route path="/:tab(about)" component={About} exact={true} />
           <Route path="**" component={NotFound} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
