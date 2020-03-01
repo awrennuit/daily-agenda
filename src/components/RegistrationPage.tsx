@@ -1,35 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IonCard, IonCardHeader, IonButton, IonLabel, IonInput, IonItem } from '@ionic/react';
 import { withRouter } from 'react-router';
 import './RegistrationPage.css';
 
 const RegistrationPage: React.FC<any> = props => {
 
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const pushToFirebase = (e: any) => {
+    e.preventDefault();
+    if(password === confirmPassword){
+      // send to Firebase
+      props.history.push('/home');
+    }
+    else {
+      alert(`Your passwords don't match!`);
+    }
+  }
+
   return(
     <div className="reg-container">
       <IonCard>
         <div className="reg-card-container">
           <IonCardHeader style={{fontSize:"1.5em",color:"#FECC27"}}>Register</IonCardHeader>
-          <form>
+          <form onSubmit={(e: any)=>pushToFirebase(e)}>
             <div className="reg-input">
               <IonItem>
-                <IonLabel position="floating">Username</IonLabel>
-                <IonInput value="username"></IonInput>
-              </IonItem>
-              <IonItem>
                 <IonLabel position="floating">Email</IonLabel>
-                <IonInput value="email"></IonInput>
+                <IonInput value={email} onIonChange={(e: any)=>setEmail(e.target.value)}></IonInput>
               </IonItem>
               <IonItem>
                 <IonLabel position="floating">Password</IonLabel>
-                <IonInput type="password" value="password"></IonInput>
+                <IonInput type="password" value={password} onIonChange={(e: any)=>setPassword(e.target.value)}></IonInput>
               </IonItem>
               <IonItem>
                 <IonLabel position="floating">Confirm Password</IonLabel>
-                <IonInput type="password" value="password"></IonInput>
+                <IonInput type="password" value={confirmPassword} onIonChange={(e: any)=>setConfirmPassword(e.target.value)}></IonInput>
               </IonItem>
             </div>
-            <IonButton style={{margin:"30px"}}>Submit</IonButton>
+            <IonButton type="submit" style={{margin:"30px"}}>Submit</IonButton>
           </form>
           <div>
             <IonButton 
