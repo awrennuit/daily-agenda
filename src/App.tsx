@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Link } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonTabs, IonTabButton, IonTabBar, IonIcon, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { informationCircle, home } from 'ionicons/icons';
+import { informationCircle, home, logOut } from 'ionicons/icons';
 import './App.css';
 import About from './pages/About';
 import Home from './pages/Home';
@@ -31,6 +31,10 @@ import Registration from './pages/Registration';
 
 const App: React.FC = () => {
 
+  const handleLogout = () => {
+    // Unset user
+  }
+
   return(
     <IonApp>
       <IonReactRouter>
@@ -58,6 +62,10 @@ const App: React.FC = () => {
             <IonTabButton tab="about" href="/about">
               <IonIcon icon={informationCircle} />
               <IonLabel>About</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="logout" onClick={handleLogout}>
+              <IonIcon icon={logOut} />
+              <IonLabel>Logout</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>
