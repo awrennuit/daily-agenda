@@ -1,26 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IonCard, IonCardHeader, IonButton, IonLabel, IonInput, IonItem } from '@ionic/react';
 import { withRouter } from 'react-router';
 import './LoginPage.css';
 
 const LoginPage: React.FC<any> = props => {
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = (e: any) => {
+    // Fetch data from Firebase
+    // if(user exists){
+      props.history.push('/home');
+    // }
+  }
+
   return(
     <div className="login-container">
       <IonCard>
         <div className="login-card-container">
           <IonCardHeader style={{fontSize:"1.5em",color:"#FECC27"}}>Log In</IonCardHeader>
-          <div className="login-input">
-            <IonItem>
-              <IonLabel position="floating">Username </IonLabel>
-              <IonInput value="username"></IonInput>
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Password </IonLabel>
-              <IonInput type="password" value="password"></IonInput>
-            </IonItem>
-          </div>
-          <IonButton style={{margin:"30px"}}>Login</IonButton>
+          <form onSubmit={(e: any)=>handleLogin(e)}>
+            <div className="login-input">
+              <IonItem>
+                <IonLabel position="floating">Email </IonLabel>
+                <IonInput value={email} onIonChange={(e: any)=>setEmail(e.target.value)} />
+              </IonItem>
+              <IonItem>
+                <IonLabel position="floating">Password </IonLabel>
+                <IonInput 
+                  type="password" 
+                  value={password} 
+                  onIonChange={(e: any)=>setPassword(e.target.value)} 
+                />
+              </IonItem>
+            </div>
+            <IonButton type="submit" style={{margin:"30px"}}>Login</IonButton>
+          </form>
           <div>
             <IonButton 
               color="medium" 
