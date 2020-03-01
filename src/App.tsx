@@ -28,38 +28,40 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App: React.FC = () => (
-  
-  <IonApp>
-    <IonReactRouter>
-      <Link to="/home" style={{textDecoration:"none"}}>
-        <IonHeader>
-          <IonToolbar className="header">
-            <IonTitle style={{fontSize:"2em"}}>Daily Agenda</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-      </Link>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/" render={()=><Redirect to="/home" />} />
-          <Route path="/:tab(home)" component={Home} exact={true} />
-          <Route path="/login" component={Login} exact={true} />
-          <Route path="/:tab(about)" component={About} exact={true} />
-          <Route path="**" component={NotFound} />
-        </IonRouterOutlet>
-        <IonTabBar color="tertiary" selectedTab="primary" slot="bottom">
-          <IonTabButton tab="home" href="/home">
-            <IonIcon icon={home} />
-            <IonLabel>Home</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="about" href="/about">
-            <IonIcon icon={informationCircle} />
-            <IonLabel>About</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+
+  return(
+    <IonApp>
+      <IonReactRouter>
+        <Link to="/home" style={{textDecoration:"none"}}>
+          <IonHeader>
+            <IonToolbar className="header">
+              <IonTitle style={{fontSize:"2em"}}>Daily Agenda</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+        </Link>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/" render={()=><Redirect to="/home" />} />
+            <Route path="/:tab(home)" component={Home} exact={true} />
+            <Route path="/login" component={Login} exact={true} />
+            <Route path="/:tab(about)" component={About} exact={true} />
+            <Route path="**" component={NotFound} />
+          </IonRouterOutlet>
+          <IonTabBar color="tertiary" selectedTab="primary" slot="bottom">
+            <IonTabButton tab="home" href="/home">
+              <IonIcon icon={home} />
+              <IonLabel>Home</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="about" href="/about">
+              <IonIcon icon={informationCircle} />
+              <IonLabel>About</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  );
+}
 
 export default App;
