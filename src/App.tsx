@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Link } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonTabs, IonTabButton, IonTabBar, IonIcon, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { informationCircle, home } from 'ionicons/icons';
@@ -28,12 +28,14 @@ import './theme/variables.css';
 
 const App: React.FC = () => (
   <IonApp>
-    <IonHeader>
-      <IonToolbar>
-        <IonTitle>Daily Agenda</IonTitle>
-      </IonToolbar>
-    </IonHeader>
     <IonReactRouter>
+      <Link to="/home" style={{textDecoration:"none"}}>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Daily Agenda</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+      </Link>
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/" render={() => <Redirect to="/home" />} />
