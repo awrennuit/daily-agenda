@@ -3,7 +3,7 @@ import { IonCard, IonCardHeader, IonButton, IonLabel, IonInput, IonItem } from '
 import { withRouter } from 'react-router';
 import './LoginPage.css';
 
-const LoginPage: React.FC<any> = (props) => {
+const LoginPage: React.FC<any> = props => {
 
   return(
     <div className="login-container">
