@@ -9,6 +9,7 @@ const LoginPage: React.FC<any> = props => {
   const [password, setPassword] = useState('');
 
   const handleLogin = (e: any) => {
+    e.preventDefault();
     // Fetch data from Firebase
     // if(user exists){
       props.history.push('/home');
