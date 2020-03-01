@@ -1,6 +1,7 @@
 import React from 'react';
 import './PageNotFound.css';
 import { IonHeader } from '@ionic/react';
+import { Link } from 'react-router-dom';
 
 const PageNotFound: React.FC = () => {
 
@@ -10,7 +11,7 @@ const PageNotFound: React.FC = () => {
       <IonHeader className="not-found-line">You</IonHeader>
       <IonHeader className="not-found-line">belong</IonHeader>
       <IonHeader style={{fontSize:"2em"}}>
-        <a href="/home">here</a>
+        <Link to="/home">here</Link>
       </IonHeader>
     </div>
   );
