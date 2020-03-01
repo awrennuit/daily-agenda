@@ -1,7 +1,7 @@
 import React from 'react';
 import './MainList.css';
-import { IonList, IonItem, IonIcon, IonCheckbox, IonLabel } from '@ionic/react';
-import { trashOutline } from 'ionicons/icons';
+import { IonList, IonItem, IonIcon, IonCheckbox, IonLabel, IonButton } from '@ionic/react';
+import { trash } from 'ionicons/icons';
 
 interface ContainerProps { }
 
@@ -34,6 +34,13 @@ const MainList: React.FC<ContainerProps> = () => {
     }   
   ];
 
+  const deleteTask = (name: String) => {
+    const popup = window.confirm(`Permanently delete ${name}?`);
+    if(popup){
+
+    }
+  }
+
   return (
     <div className="container">
       <div className="list-container">
@@ -42,7 +49,9 @@ const MainList: React.FC<ContainerProps> = () => {
             <IonItem key={task.id}>
               <IonCheckbox></IonCheckbox>
               <IonLabel className="list-task">{task.task}</IonLabel>
-              <IonIcon slot="end" icon={trashOutline}></IonIcon>
+              <IonButton color="danger" onClick={()=>deleteTask(task.task)}>
+                <IonIcon icon={trash}></IonIcon>
+              </IonButton>
             </IonItem>
           )}
         </IonList>
