@@ -1,4 +1,5 @@
 import * as firebase from 'firebase'; 
+import { toast } from './components/toast';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -24,6 +25,17 @@ export async function loginUser(email: string, password: string){
   }
   catch(error) {
     console.log(error);
+    return false;
+  }
+}
+
+export async function registerUser(email: string, password: string){
+  try {
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    return true;
+  }
+  catch(error) {
+    toast(error.message, 3000);
     return false;
   }
 }

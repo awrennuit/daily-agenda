@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { IonCard, IonCardHeader, IonButton, IonLabel, IonInput, IonItem } from '@ionic/react';
 import { withRouter } from 'react-router';
 import './RegistrationPage.css';
+import { toast } from './toast';
+import { registerUser } from '../firebase';
 
 const RegistrationPage: React.FC<any> = props => {
 
@@ -9,14 +11,17 @@ const RegistrationPage: React.FC<any> = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const pushToFirebase = (e: any) => {
+  async function register(e: any){
     e.preventDefault();
-    if(password === confirmPassword){
-      // send to Firebase
-      props.history.push('/home');
+    if(password !== confirmPassword){
+      return toast(`Passwords don't match!`);
     }
-    else {
-      alert(`Your passwords don't match!`);
+    else if(email.trim() === '' || password.trim() === ''){
+      return toast(`Email and Password required.`);
+    }
+    const res = await registerUser(email, password);
+    if(res){
+      props.history.push('/home');
     }
   }
 
@@ -25,7 +30,7 @@ const RegistrationPage: React.FC<any> = props => {
       <IonCard>
         <div className="reg-card-container">
           <IonCardHeader style={{fontSize:"1.5em",color:"#FECC27"}}>Register</IonCardHeader>
-          <form onSubmit={(e: any)=>pushToFirebase(e)}>
+          <form onSubmit={(e: any)=>register(e)}>
             <div className="reg-input">
               <IonItem>
                 <IonLabel className="login-label" position="floating">Email</IonLabel>
