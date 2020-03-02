@@ -35,7 +35,7 @@ export async function registerUser(email: string, password: string){
     return true;
   }
   catch(error) {
-    toast(error.message, 3000);
+    toast(error.message, 4000);
     return false;
   }
 }
