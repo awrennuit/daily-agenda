@@ -2,42 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './MainList.css';
 import { IonList, IonItem, IonIcon, IonCheckbox, IonLabel, IonButton, IonInput } from '@ionic/react';
 import { trash } from 'ionicons/icons';
-import { getCurrentUser } from '../firebase';
+import { getCurrentUser, db } from '../firebase';
 import { useHistory } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 const MainList: React.FC = () => {
 
   const history = useHistory();
-  // const user = useSelector(state => state.userReducer);
+  const dispatch = useDispatch();
   const [task, setTask] = useState('');
-
-  const list = [
-    {
-      id: 1,
-      task: 'vacuum'
-    },
-    {
-      id: 2,
-      task: 'wash dishes'
-    },
-    {
-      id: 3,
-      task: 'buy groceries'
-    },
-    {
-      id: 4,
-      task: 'pet chores'
-    },
-    {
-      id: 5,
-      task: 'clean bathroom'
-    },
-    {
-      id: 6,
-      task: 'learn Ionic & Firebase'
-    }   
-  ];
+  const [taskList, setTaskList] = useState([]);
 
   useEffect(()=>{
     getCurrentUser().then((user: any) => {      
@@ -47,10 +22,16 @@ const MainList: React.FC = () => {
     });
   }, [history]);
 
+  useEffect(()=>{
+    db.ref().child('tasks').on('value', snap => {
+      setTaskList(snap.val());
+    });
+  }, [dispatch]);
+
   const deleteTask = (name: String) => {
     const popup = window.confirm(`Permanently delete ${name}?`);
     if(popup){
-
+      // remove from Firebase
     }
   }
 
@@ -71,11 +52,11 @@ const MainList: React.FC = () => {
           </IonItem>
         </form>
         <IonList>
-          {list.map(task=>
-            <IonItem key={task.id}>
+          {Object.keys(taskList).map((task, i) =>
+            <IonItem key={i}>
               <IonCheckbox></IonCheckbox>
-              <IonLabel className="list-task">{task.task}</IonLabel>
-              <IonButton color="danger" onClick={()=>deleteTask(task.task)}>
+              <IonLabel className="list-task">{task}</IonLabel>
+              <IonButton color="danger" onClick={()=>deleteTask(task)}>
                 <IonIcon icon={trash}></IonIcon>
               </IonButton>
             </IonItem>

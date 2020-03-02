@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 
-
-const userReducer = (state = {}, action: any) => {
+const userReducer = (state={}, action: any) => {
   switch(action.type){
     case `SET_USER`:
       return action.payload;

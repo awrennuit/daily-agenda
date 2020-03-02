@@ -18,6 +18,8 @@ if (!firebase.apps.length) {
 
 firebase.analytics();
 
+export const db = firebase.database();
+
 export function getCurrentUser(){
   return new Promise((resolve, reject) => {
     return firebase.auth().onAuthStateChanged(function(user){

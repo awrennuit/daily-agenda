@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Redirect, Route, Link, withRouter, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonTabs, IonTabButton, IonTabBar, IonIcon, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { informationCircle, home, logOut } from 'ionicons/icons';
@@ -29,7 +30,6 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import { useDispatch } from 'react-redux';
 
 const App: React.FC = () => {
 
