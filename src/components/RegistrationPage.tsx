@@ -28,11 +28,11 @@ const RegistrationPage: React.FC<any> = props => {
           <form onSubmit={(e: any)=>pushToFirebase(e)}>
             <div className="reg-input">
               <IonItem>
-                <IonLabel position="floating">Email</IonLabel>
+                <IonLabel className="login-label" position="floating">Email</IonLabel>
                 <IonInput value={email} onIonChange={(e: any)=>setEmail(e.target.value)} />
               </IonItem>
               <IonItem>
-                <IonLabel position="floating">Password</IonLabel>
+                <IonLabel className="login-label" position="floating">Password</IonLabel>
                 <IonInput 
                   type="password" 
                   value={password} 
@@ -40,7 +40,7 @@ const RegistrationPage: React.FC<any> = props => {
                 />
               </IonItem>
               <IonItem>
-                <IonLabel position="floating">Confirm Password</IonLabel>
+                <IonLabel className="login-label" position="floating">Confirm Password</IonLabel>
                 <IonInput 
                   type="password" 
                   value={confirmPassword} 
