@@ -13,7 +13,6 @@ const LoginPage: React.FC<any> = props => {
     e.preventDefault();
     // Fetch data from Firebase
     const res = await loginUser(email, password);
-    console.log(res);
     if(res){
       props.history.push('/home');
     }
