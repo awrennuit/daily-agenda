@@ -13,11 +13,10 @@ const LoginPage: React.FC<any> = props => {
     e.preventDefault();
     // Fetch data from Firebase
     const res = await loginUser(email, password);
-    console.log(`${res ? 'login success' : 'login failure'}`);
-    
-    // if(user exists){
+    console.log(res);
+    if(res === true){
       props.history.push('/home');
-    // }
+    }
   }
 
   return(
