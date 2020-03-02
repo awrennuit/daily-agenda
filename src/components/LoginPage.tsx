@@ -3,6 +3,7 @@ import { IonCard, IonCardHeader, IonButton, IonLabel, IonInput, IonItem } from '
 import { withRouter } from 'react-router';
 import './LoginPage.css';
 import { loginUser } from '../firebase';
+import { toast } from './toast';
 
 const LoginPage: React.FC<any> = props => {
 
@@ -15,6 +16,9 @@ const LoginPage: React.FC<any> = props => {
     const res = await loginUser(email, password);
     if(res){
       props.history.push('/home');
+    }
+    else {
+      toast('Email or Password incorrect. Did you sign up?');
     }
   }
 
