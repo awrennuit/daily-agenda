@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonCard, IonCardHeader, IonButton, IonLabel, IonInput, IonItem } from '@ionic/react';
-import { withRouter } from 'react-router';
+import { withRouter, useHistory } from 'react-router';
 import './LoginPage.css';
-import { loginUser } from '../firebase';
+import { loginUser, getCurrentUser } from '../firebase';
 import { toast } from './toast';
 
 const LoginPage: React.FC<any> = props => {
 
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(()=>{
+    getCurrentUser().then((user: any) => {      
+      if(user){
+        history.push('/home');
+      }
+    });
+  }, [history]);
 
   async function handleLogin(e: any){
     e.preventDefault();

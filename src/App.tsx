@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Redirect, Route, Link, withRouter, useHistory } from 'react-router-dom';
+import { Redirect, Route, Link, withRouter } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonTabs, IonTabButton, IonTabBar, IonIcon, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { informationCircle, home, logOut } from 'ionicons/icons';
@@ -33,20 +33,15 @@ import { useDispatch } from 'react-redux';
 
 const App: React.FC = () => {
 
-  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(()=>{
     getCurrentUser().then((user: any) => {      
       if(user){
         dispatch({type: `SET_USER`, payload: user.email});
-        history.push('/home');
-      }
-      else {
-        history.push('/login');
       }
     });
-  }, [dispatch, history]);
+  }, [dispatch]);
 
   const handleLogout = () => {
     // Unset user

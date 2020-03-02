@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './MainList.css';
 import { IonList, IonItem, IonIcon, IonCheckbox, IonLabel, IonButton } from '@ionic/react';
 import { trash } from 'ionicons/icons';
+import { getCurrentUser } from '../firebase';
+import { useHistory } from 'react-router';
 
 const MainList: React.FC = () => {
+
+  const history = useHistory();
 
   const list = [
     {
@@ -31,6 +35,14 @@ const MainList: React.FC = () => {
       task: 'learn Ionic & Firebase'
     }   
   ];
+
+  useEffect(()=>{
+    getCurrentUser().then((user: any) => {      
+      if(!user){
+        history.push('/login');
+      }
+    });
+  }, [history]);
 
   const deleteTask = (name: String) => {
     const popup = window.confirm(`Permanently delete ${name}?`);
