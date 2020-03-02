@@ -18,15 +18,32 @@ if (!firebase.apps.length) {
 
 firebase.analytics();
 
+export function getCurrentUser(){
+  return new Promise((resolve, reject) => {
+    return firebase.auth().onAuthStateChanged(function(user){
+      if(user){
+        resolve(user);
+      }
+      else {
+        resolve(null);
+      }
+    });
+  });
+}
+
 export async function loginUser(email: string, password: string){
   try {
-    await firebase.auth().signInWithEmailAndPassword(email, password);
-    return true;
+    const result = await firebase.auth().signInWithEmailAndPassword(email, password);
+    return result;
   }
   catch(error) {
     console.log(error);
     return false;
   }
+}
+
+export function logoutUser(){
+  return firebase.auth().signOut();
 }
 
 export async function registerUser(email: string, password: string){
@@ -39,20 +56,3 @@ export async function registerUser(email: string, password: string){
     return false;
   }
 }
-
-export function getCurrentUser(){
-  return new Promise((resolve, reject) => {
-    return firebase.auth().onAuthStateChanged(function(user){
-      if(user){
-        resolve(user);
-      }
-      else {
-        resolve(null);
-      }
-    });
-  })
-  
-}
-
-// export const auth = firebase.auth();
-// export const db = firebase.database();
