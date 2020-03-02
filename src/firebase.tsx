@@ -40,5 +40,19 @@ export async function registerUser(email: string, password: string){
   }
 }
 
+export function getCurrentUser(){
+  return new Promise((resolve, reject) => {
+    return firebase.auth().onAuthStateChanged(function(user){
+      if(user){
+        resolve(user);
+      }
+      else {
+        resolve(null);
+      }
+    });
+  })
+  
+}
+
 // export const auth = firebase.auth();
 // export const db = firebase.database();

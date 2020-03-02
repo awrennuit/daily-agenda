@@ -1,13 +1,15 @@
-import React from 'react';
-import { Redirect, Route, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Redirect, Route, Link, withRouter, useHistory } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonTabs, IonTabButton, IonTabBar, IonIcon, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { informationCircle, home, logOut } from 'ionicons/icons';
+import { getCurrentUser } from './firebase';
 import './App.css';
 import About from './pages/About';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
+import Registration from './pages/Registration';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -27,9 +29,21 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Registration from './pages/Registration';
 
 const App: React.FC = () => {
+
+  const history = useHistory();
+
+  useEffect(()=>{
+    getCurrentUser().then(user => {
+      if(user){
+        history.push('/home');
+      }
+      else {
+        history.push('/login');
+      }
+    });
+  }, [history]);
 
   const handleLogout = () => {
     // Unset user
@@ -48,10 +62,10 @@ const App: React.FC = () => {
         <IonTabs>
           <IonRouterOutlet>
             <Route exact path="/" render={()=><Redirect to="/home" />} />
-            <Route path="/:tab(home)" component={Home} exact={true} />
-            <Route path="/login" component={Login} exact={true} />
-            <Route path="/register" component={Registration} exact={true} />
-            <Route path="/:tab(about)" component={About} exact={true} />
+            <Route exact path="/:tab(home)" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Registration} />
+            <Route exact path="/:tab(about)" component={About} />
             <Route path="**" component={NotFound} />
           </IonRouterOutlet>
           <IonTabBar color="tertiary" selectedTab="primary" slot="bottom">
@@ -74,4 +88,4 @@ const App: React.FC = () => {
   );
 }
 
-export default App;
+export default withRouter(App);
