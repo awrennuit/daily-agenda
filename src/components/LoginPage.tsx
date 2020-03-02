@@ -14,7 +14,7 @@ const LoginPage: React.FC<any> = props => {
     // Fetch data from Firebase
     const res = await loginUser(email, password);
     console.log(res);
-    if(res === true){
+    if(res){
       props.history.push('/home');
     }
   }
