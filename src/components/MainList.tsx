@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MainList.css';
-import { IonList, IonItem, IonIcon, IonCheckbox, IonLabel, IonButton } from '@ionic/react';
+import { IonList, IonItem, IonIcon, IonCheckbox, IonLabel, IonButton, IonInput } from '@ionic/react';
 import { trash } from 'ionicons/icons';
 import { getCurrentUser } from '../firebase';
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const MainList: React.FC = () => {
 
   const history = useHistory();
+  // const user = useSelector(state => state.userReducer);
+  const [task, setTask] = useState('');
 
   const list = [
     {
@@ -51,9 +54,22 @@ const MainList: React.FC = () => {
     }
   }
 
+  const handleSubmit = () => {
+    // dispatch task to Firebase
+  }
+
   return (
     <div className="container">
       <div className="list-container">
+        <form className="list-form" onSubmit={handleSubmit}>
+          <IonItem>
+            <IonLabel position="floating">Add task</IonLabel>
+            <IonInput value={task} onIonChange={(e: any)=>setTask(e.target.value)} />
+          </IonItem>
+          <IonItem>
+            <IonButton type="submit">Add</IonButton>
+          </IonItem>
+        </form>
         <IonList>
           {list.map(task=>
             <IonItem key={task.id}>
