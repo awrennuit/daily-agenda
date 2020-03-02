@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import { IonCard, IonCardHeader, IonButton, IonLabel, IonInput, IonItem } from '@ionic/react';
 import { withRouter } from 'react-router';
 import './LoginPage.css';
+import { loginUser } from '../firebase';
 
 const LoginPage: React.FC<any> = props => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e: any) => {
+  async function handleLogin(e: any){
     e.preventDefault();
     // Fetch data from Firebase
+    const res = await loginUser(email, password);
+    console.log(`${res ? 'login success' : 'login failure'}`);
+    
     // if(user exists){
       props.history.push('/home');
     // }

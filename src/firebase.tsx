@@ -17,5 +17,16 @@ if (!firebase.apps.length) {
 
 firebase.analytics();
 
+export async function loginUser(email: string, password: string){
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    return true;
+  }
+  catch(error) {
+    console.log(error);
+    return false;
+  }
+}
+
 // export const auth = firebase.auth();
 // export const db = firebase.database();
