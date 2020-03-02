@@ -4,10 +4,13 @@ import { withRouter, useHistory } from 'react-router';
 import './LoginPage.css';
 import { loginUser, getCurrentUser } from '../firebase';
 import { toast } from './toast';
+import { userInfo } from 'os';
+import { useDispatch } from 'react-redux';
 
-const LoginPage: React.FC<any> = props => {
+const LoginPage: React.FC = () => {
 
   const history = useHistory();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -22,9 +25,10 @@ const LoginPage: React.FC<any> = props => {
   async function handleLogin(e: any){
     e.preventDefault();
     // Fetch data from Firebase
-    const res = await loginUser(email, password);
-    if(res){
-      props.history.push('/home');
+    const res: any = await loginUser(email, password);
+    if(res.user.email){
+      dispatch({type: `SET_USER`, payload: res.user.email});
+      history.push('/home');
     }
     else {
       toast('Email or Password incorrect. Did you sign up?');
@@ -57,7 +61,7 @@ const LoginPage: React.FC<any> = props => {
             <IonButton 
               color="medium" 
               style={{marginBottom:"10px"}}
-              onClick={()=>props.history.push('/register')}>register</IonButton>
+              onClick={()=>history.push('/register')}>register</IonButton>
           </div>
         </div>
       </IonCard>
