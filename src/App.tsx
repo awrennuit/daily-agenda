@@ -29,21 +29,24 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { useDispatch } from 'react-redux';
 
 const App: React.FC = () => {
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(()=>{
-    getCurrentUser().then(user => {
+    getCurrentUser().then((user: any) => {      
       if(user){
+        dispatch({type: `SET_USER`, payload: user.email});
         history.push('/home');
       }
       else {
         history.push('/login');
       }
     });
-  }, [history]);
+  }, [dispatch, history]);
 
   const handleLogout = () => {
     // Unset user
