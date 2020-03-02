@@ -30,11 +30,11 @@ const LoginPage: React.FC<any> = props => {
           <form onSubmit={(e: any)=>handleLogin(e)}>
             <div className="login-input">
               <IonItem>
-                <IonLabel position="floating">Email </IonLabel>
+                <IonLabel className="login-label" position="floating">Email </IonLabel>
                 <IonInput value={email} onIonChange={(e: any)=>setEmail(e.target.value)} />
               </IonItem>
               <IonItem>
-                <IonLabel position="floating">Password </IonLabel>
+                <IonLabel className="login-label" position="floating">Password </IonLabel>
                 <IonInput 
                   type="password" 
                   value={password} 

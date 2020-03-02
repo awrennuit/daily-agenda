@@ -10,3 +10,7 @@
 .login-input {
   margin: 0 30px;
 }
+
+.login-label {
+  color: white !important;
+}
