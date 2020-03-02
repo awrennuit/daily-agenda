@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Redirect, Route, Link, withRouter } from 'react-router-dom';
+import { Redirect, Route, Link, withRouter, useHistory } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonTabs, IonTabButton, IonTabBar, IonIcon, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { informationCircle, home, logOut } from 'ionicons/icons';
-import { getCurrentUser } from './firebase';
+import { getCurrentUser, logoutUser } from './firebase';
 import './App.css';
 import About from './pages/About';
 import Home from './pages/Home';
@@ -33,6 +33,7 @@ import { useDispatch } from 'react-redux';
 
 const App: React.FC = () => {
 
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -43,8 +44,9 @@ const App: React.FC = () => {
     });
   }, [dispatch]);
 
-  const handleLogout = () => {
-    // Unset user
+  async function handleLogout() {
+    await logoutUser();
+    history.replace('/login');
   }
 
   return(
