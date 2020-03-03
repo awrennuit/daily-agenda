@@ -38,12 +38,6 @@ const MainList: React.FC = () => {
     
   }, [dispatch]);
 
-  // Toggle between completed and not completed based on checkbox status
-  const toggleTask = (completed: boolean, key: any) => {
-    dispatch({type: `CLEAR_REDUCER`});  
-    db.ref(`users/${uid}/${key}`).update({completed: !completed});
-  }
-
   // Handle deleting data from Firebase
   const deleteTask = (task: String) => {
     const popup = window.confirm(`Permanently delete ${task}?`);
@@ -55,11 +49,20 @@ const MainList: React.FC = () => {
   // Handle posting new data to Firebase
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    db.ref(`/users/${uid}/${task}`).set({
-      name: task,
-      completed: false
-    });
-    setTask('');
+    if(task.trim() !== ''){
+      dispatch({type: `CLEAR_REDUCER`});
+      db.ref(`/users/${uid}/${task}`).set({
+        name: task,
+        completed: false
+      });
+      setTask('');
+    }
+  }
+
+  // Toggle between completed and not completed based on checkbox status
+  const toggleTask = (completed: boolean, key: any) => {
+    dispatch({type: `CLEAR_REDUCER`});  
+    db.ref(`users/${uid}/${key}`).update({completed: !completed});
   }
 
   return (
