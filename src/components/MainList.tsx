@@ -35,15 +35,14 @@ const MainList: React.FC = () => {
         });
       });
     });
-    
-  }, [dispatch]);
+  }, []);
 
   // Handle deleting data from Firebase
   const deleteTask = (task: String) => {
     const popup = window.confirm(`Permanently delete ${task}?`);
     if(popup){
-      // dispatch({type: `CLEAR_REDUCER`}); // Causes occasional max-depth loops
       db.ref(`/users/${uid}/${task}`).remove();
+      resetReducer();
     }
   }
 
@@ -51,19 +50,31 @@ const MainList: React.FC = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if(task.trim() !== ''){
-      // dispatch({type: `CLEAR_REDUCER`}); // Causes occasional max-depth loops
       db.ref(`/users/${uid}/${task}`).set({
         name: task,
         completed: false
       });
       setTask('');
+      resetReducer();
     }
+  }
+
+  // Clear the reducer, then reset it with Firebase data
+  async function resetReducer(){
+    await dispatch({type: `CLEAR_REDUCER`});
+    await getCurrentUser().then((user: any) => {
+      db.ref(`users/${user.uid}`).on('value', snap => {
+        snap.forEach(child => {
+          dispatch({type: `SET_TASK_LIST`, payload: child.val()});
+        });
+      });
+    });
   }
 
   // Toggle between completed and not completed based on checkbox status
   const toggleTask = (completed: boolean, key: any) => {
-    dispatch({type: `CLEAR_REDUCER`});  
     db.ref(`users/${uid}/${key}`).update({completed: !completed});
+    resetReducer(); // Why does this duplicate all entries?
   }
 
   return (
