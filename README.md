@@ -4,6 +4,8 @@
 
 This mobile-first app was built out to experiment with technologies I have not yet worked with - Ionic and Firebase. Users can register an account, log in, and add or remove items from their daily to-do list.
 
+You can view the app here: https://awren-to-do.firebaseapp.com/login
+
 ## Technologies Used
 
 - React
