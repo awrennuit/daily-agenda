@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { IonReactRouter } from '@ionic/react-router';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import logger from 'redux-logger';
+import { createStore, combineReducers } from 'redux';
 
 // Store user data from Firebase
 const userReducer = (state={}, action: any) => {
@@ -30,19 +29,12 @@ const taskReducer = (state=[], action: any) => {
   }
 }
 
-// Only user logger when in development mode
-const middlewareList: any = process.env.NODE_ENV === 'development' ?
-  logger 
-  :
-  '';
-
 // Create reducer store, combine reducers, apply logger middleware
 const store = createStore(
   combineReducers({
   userReducer,
   taskReducer
-  }),
-  applyMiddleware(middlewareList),
+  })
 );
 
 // Wrap main App.js component in Ionic's router and Redux's reducer provider
