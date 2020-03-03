@@ -29,11 +29,16 @@ const MainList: React.FC = () => {
   // Set reducer with task list from Firebase
   useEffect(()=>{
     getCurrentUser().then((user: any) => {
-      db.ref(`users/${user.uid}`).on('value', snap => {
-        snap.forEach(child => {
-          dispatch({type: `SET_TASK_LIST`, payload: child.val()});
+      if(!user){
+        return false;
+      }
+      else {
+        db.ref(`users/${user.uid}`).on('value', snap => {
+          snap.forEach(child => {
+            dispatch({type: `SET_TASK_LIST`, payload: child.val()});
+          });
         });
-      });
+      }
     });
   }, []);
 
