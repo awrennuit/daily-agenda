@@ -10,7 +10,7 @@ const MainList: React.FC = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const tasks = useSelector((state: any) => state.taskReducer);
+  const taskList = useSelector((state: any) => state.taskReducer);
   const [task, setTask] = useState('');
   const [uid, setUid] = useState('');
 
@@ -75,7 +75,7 @@ const MainList: React.FC = () => {
           </IonItem>
         </form>
         <IonList>
-          {tasks.map((task: any, i: number) =>
+          {taskList.map((task: any, i: number) =>
             <IonItem key={i}>
               <IonCheckbox onIonChange={()=>toggleTask(task.completed, task.name)} checked={task.completed} />
               <IonLabel className="list-task">{task.name}</IonLabel>
