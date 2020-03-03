@@ -18,7 +18,7 @@ const MainList: React.FC = () => {
   useEffect(()=>{
     getCurrentUser().then((user: any) => {      
       if(!user){
-        history.push('/login');
+        history.push('/login'); // Why does url update, but component does not render?
       }
       else {
         setUid(user.uid);

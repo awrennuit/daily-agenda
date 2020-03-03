@@ -16,7 +16,7 @@ const LoginPage: React.FC = () => {
   useEffect(()=>{
     getCurrentUser().then((user: any) => {      
       if(user){
-        history.push('/home');
+        history.push('/home'); // Why does url update, but component does not render?
       }
     });
   }, [history]);
