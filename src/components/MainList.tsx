@@ -4,16 +4,17 @@ import { IonList, IonItem, IonIcon, IonCheckbox, IonLabel, IonButton, IonInput }
 import { trash } from 'ionicons/icons';
 import { getCurrentUser, db } from '../firebase';
 import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const MainList: React.FC = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
+  const tasks = useSelector((state: any) => state.taskReducer);
   const [task, setTask] = useState('');
-  const [taskList, setTaskList] = useState([]);
   const [uid, setUid] = useState('');
 
+  // Get user id from Firebase on component mount
   useEffect(()=>{
     getCurrentUser().then((user: any) => {      
       if(!user){
@@ -25,22 +26,25 @@ const MainList: React.FC = () => {
     });
   }, [history]);
 
+  // Set reducer with task list from Firebase
   useEffect(()=>{
     getCurrentUser().then((user: any) => {
-      db.ref(`users`).child(user.uid).on('value', snap => {
-        // snap.forEach(child => {
-        //   setTaskList(child.val()); // ...spread doesn't work with Typescript?
-        // });
-        setTaskList(snap.val());
+      db.ref(`users/${user.uid}`).on('value', snap => {
+        snap.forEach(child => {
+          dispatch({type: `SET_TASK_LIST`, payload: child.val()});
+        });
       });
     });
     
   }, [dispatch]);
 
-  const toggleTask = (completed: boolean) => {
-      // db.ref(`/users/${uid}/${key}`).update(); // Do an update to toggle the boolean here
+  // Toggle between completed and not completed based on checkbox status
+  const toggleTask = (completed: boolean, key: any) => {
+    dispatch({type: `CLEAR_REDUCER`});  
+    db.ref(`users/${uid}/${key}`).update({completed: !completed});
   }
 
+  // Handle deleting data from Firebase
   const deleteTask = (task: String) => {
     const popup = window.confirm(`Permanently delete ${task}?`);
     if(popup){
@@ -48,6 +52,7 @@ const MainList: React.FC = () => {
     }
   }
 
+  // Handle posting new data to Firebase
   const handleSubmit = (e: any) => {
     e.preventDefault();
     db.ref(`/users/${uid}/${task}`).set({
@@ -70,20 +75,14 @@ const MainList: React.FC = () => {
           </IonItem>
         </form>
         <IonList>
-          {Object.keys(taskList).map((task: any, i) => // How to map when random ID is also present? Mapping taskList gives error since useEffect hasn't set the state yet?
-          // <span key={i}>
-          //   {task !== false && task !== true ?
-              <IonItem key={i}>
-                <IonCheckbox onChange={()=>toggleTask(task)} /> {/* Cannot differentiate true from false to render checked */}
-                <IonLabel className="list-task">{task}</IonLabel>
-                <IonButton color="danger" onClick={()=>deleteTask(task)}>
-                  <IonIcon icon={trash}></IonIcon>
-                </IonButton>
-              </IonItem>
-            // :
-            //   ''
-            // }
-            // </span>
+          {tasks.map((task: any, i: number) =>
+            <IonItem key={i}>
+              <IonCheckbox onIonChange={()=>toggleTask(task.completed, task.name)} checked={task.completed} />
+              <IonLabel className="list-task">{task.name}</IonLabel>
+              <IonButton color="danger" onClick={()=>deleteTask(task.name)}>
+                <IonIcon icon={trash}></IonIcon>
+              </IonButton>
+            </IonItem>
           )}
         </IonList>
       </div>
