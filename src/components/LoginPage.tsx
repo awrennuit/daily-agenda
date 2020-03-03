@@ -4,7 +4,6 @@ import { withRouter, useHistory } from 'react-router';
 import './LoginPage.css';
 import { loginUser, getCurrentUser } from '../firebase';
 import { toast } from './toast';
-import { userInfo } from 'os';
 import { useDispatch } from 'react-redux';
 
 const LoginPage: React.FC = () => {
@@ -24,7 +23,6 @@ const LoginPage: React.FC = () => {
 
   async function handleLogin(e: any){
     e.preventDefault();
-    // Fetch data from Firebase
     const res: any = await loginUser(email, password);
     if(res.user.email){
       dispatch({type: `SET_USER`, payload: res.user.email});
