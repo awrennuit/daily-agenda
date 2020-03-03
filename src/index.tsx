@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 
+// Why can I not use reducers? 
 const userReducer = (state={}, action: any) => {
   switch(action.type){
     case `SET_USER`:
@@ -23,7 +24,7 @@ const middlewareList: any = process.env.NODE_ENV === 'development' ?
   '';
 
 const store = createStore(
-  userReducer,
+  userReducer, // Why can't I access this?
   applyMiddleware(middlewareList),
 );
 
