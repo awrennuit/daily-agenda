@@ -28,28 +28,33 @@ const MainList: React.FC = () => {
   useEffect(()=>{
     getCurrentUser().then((user: any) => {
       db.ref(`users`).child(user.uid).on('value', snap => {
-        snap.forEach(child => {
-          setTaskList(child.val()); // ...spread doesn't work with Typescript?
-        });
+        // snap.forEach(child => {
+        //   setTaskList(child.val()); // ...spread doesn't work with Typescript?
+        // });
+        setTaskList(snap.val());
       });
     });
     
   }, [dispatch]);
 
-  const deleteTask = (name: String) => {
-    const popup = window.confirm(`Permanently delete ${name}?`);
+  const toggleTask = (completed: boolean) => {
+      // db.ref(`/users/${uid}/${key}`).update(); // Do an update to toggle the boolean here
+  }
+
+  const deleteTask = (task: String) => {
+    const popup = window.confirm(`Permanently delete ${task}?`);
     if(popup){
-      // let key = ????; // How to call random ID to delete correct data?
-      // db.ref(`/users/${uid}/${key}`).remove();
+      db.ref(`/users/${uid}/${task}`).remove();
     }
   }
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    db.ref(`/users/${uid}`).push().set({
+    db.ref(`/users/${uid}/${task}`).set({
       name: task,
       completed: false
     });
+    setTask('');
   }
 
   return (
@@ -65,20 +70,20 @@ const MainList: React.FC = () => {
           </IonItem>
         </form>
         <IonList>
-          {Object.values(taskList).map((task, i) => // How to map when random ID is also present? Mapping taskList gives error since useEffect hasn't set the state yet?
-          <span key={i}>
-            {task !== false && task !== true ?
+          {Object.keys(taskList).map((task: any, i) => // How to map when random ID is also present? Mapping taskList gives error since useEffect hasn't set the state yet?
+          // <span key={i}>
+          //   {task !== false && task !== true ?
               <IonItem key={i}>
-                <IonCheckbox /> {/* Cannot differentiate true from false to render checked */}
+                <IonCheckbox onChange={()=>toggleTask(task)} /> {/* Cannot differentiate true from false to render checked */}
                 <IonLabel className="list-task">{task}</IonLabel>
                 <IonButton color="danger" onClick={()=>deleteTask(task)}>
                   <IonIcon icon={trash}></IonIcon>
                 </IonButton>
               </IonItem>
-            :
-              ''
-            }
-            </span>
+            // :
+            //   ''
+            // }
+            // </span>
           )}
         </IonList>
       </div>
