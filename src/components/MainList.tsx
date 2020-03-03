@@ -42,6 +42,7 @@ const MainList: React.FC = () => {
   const deleteTask = (task: String) => {
     const popup = window.confirm(`Permanently delete ${task}?`);
     if(popup){
+      // dispatch({type: `CLEAR_REDUCER`}); // Causes occasional max-depth loops
       db.ref(`/users/${uid}/${task}`).remove();
     }
   }
@@ -50,7 +51,7 @@ const MainList: React.FC = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if(task.trim() !== ''){
-      dispatch({type: `CLEAR_REDUCER`});
+      // dispatch({type: `CLEAR_REDUCER`}); // Causes occasional max-depth loops
       db.ref(`/users/${uid}/${task}`).set({
         name: task,
         completed: false
