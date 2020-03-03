@@ -46,7 +46,7 @@ const App: React.FC = () => {
 
   async function handleLogout() {
     await logoutUser();
-    history.replace('/login'); // Why does url change but pathname remains static?
+    history.push('/login'); // Why does url change but pathname remains static?
   }
 
   return(
